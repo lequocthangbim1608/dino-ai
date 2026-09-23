@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>DINO AI - Trợ Lý Nuôi Dạy Bé Quốc Vũ</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#4A7C59" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <!-- Google Fonts & Chart.js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="baby-banner">
+        <div class="avatar-ring">
+          <div class="dino-avatar">🦖</div>
+        </div>
+        <div class="baby-meta">
+          <div class="baby-title">
+            <h2>Lê Trương Quốc Vũ <span class="badge-dino">Dino</span></h2>
+          </div>
+          <p class="baby-sub" id="babyAgeText">Đang tính tuổi...</p>
+        </div>
+      </div>
+      
+      <!-- Role Switcher -->
+      <div class="role-selector">
+        <span class="role-label">Tài khoản:</span>
+        <div class="role-pills">
+          <button class="role-btn active" id="roleFatherBtn" onclick="setRole('Bố', 'Lê Quốc Thắng')">
+            👨 Bố Thắng
+          </button>
+          <button class="role-btn" id="roleMotherBtn" onclick="setRole('Mẹ', 'Trương Hoàng Linh Chi')">
+            👩 Mẹ Chi
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Navigation Bar -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('chat')">
+        <span class="tab-icon">💬</span>
+        <span class="tab-text">Trợ Lý AI</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('timeline')">
+        <span class="tab-icon">📖</span>
+        <span class="tab-text">Nhật Ký</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('growth')">
+        <span class="tab-icon">📈</span>
+        <span class="tab-text">Tăng Trưởng</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('vaccine')">
+        <span class="tab-icon">💉</span>
+        <span class="tab-text">Tiêm Chủng</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('zalo')">
+        <span class="tab-icon">📱</span>
+        <span class="tab-text">Kết Nối Zalo</span>
+      </button>
+    </nav>
+
+    <!-- Tab 1: AI Chat -->
+    <section id="tab-chat" class="tab-content active">
+      <div class="chat-quick-actions">
+        <div class="quick-scroll">
+          <button class="quick-chip" onclick="quickSend('Dino vừa ăn hết 60ml cháo bí đỏ rây và 1 miếng bơ')">🥣 Ăn dặm hôm nay</button>
+          <button class="quick-chip" onclick="quickSend('Hôm nay Dino cân được 8.6kg, dài 70cm')">⚖️ Đo cân nặng, chiều cao</button>
+          <button class="quick-chip" onclick="quickSend('Bé vừa ngủ nap sáng 1 tiếng rất ngoan')">💤 Ghi nhận giấc ngủ</button>
+          <button class="quick-chip" onclick="quickSend('Dino vừa tự vịn tay vào mép giường đứng lên được 20 giây')">🌟 Cột mốc vận động mới</button>
+          <button class="quick-chip" onclick="quickSend('Gợi ý trò chơi phát triển thính giác và ngôn ngữ cho bé 7 tháng tuổi')">💡 Gợi ý trò chơi</button>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg-box bot">
+          <div class="msg-bubble">
+            <p>Chào Bố Thắng và Mẹ Chi! Em là <b>DINO AI</b> 🦖.</p>
+            <p>Bố mẹ có thể nhắn tin nhanh, ghi nhận bữa ăn, giấc ngủ, chỉ số sức khỏe của bé Quốc Vũ hoặc hỏi bất kỳ thắc mắc nào về chăm sóc con nhé!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <form id="chatForm" onsubmit="handleChatSubmit(event)">
+          <input type="text" id="chatInput" placeholder="Nhắn tin cho Dino AI (VD: Dino vừa ăn 50ml cháo...)" autocomplete="off" />
+          <button type="submit" id="sendBtn" class="send-button">
+            <span>Gửi</span> 🚀
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Tab 2: Timeline Logs -->
+    <section id="tab-timeline" class="tab-content">
+      <div class="section-card">
+        <div class="card-header-flex">
+          <h3>📖 Dòng Thời Gian Trưởng Thành</h3>
+          <button class="btn-refresh" onclick="loadTimeline()">Làm mới 🔄</button>
+        </div>
+        <div id="timelineContainer" class="timeline-list">
+          <p class="empty-state">Đang tải nhật ký...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Growth Chart -->
+    <section id="tab-growth" class="tab-content">
+      <div class="section-card">
+        <h3>📈 Biểu Đồ Cân Nặng Chuẩn WHO (Bé Trai)</h3>
+        <p class="card-desc">So sánh cân nặng của bé Dino với chuẩn của Tổ chức Y tế Thế giới (WHO).</p>
+        <div class="chart-box">
+          <canvas id="growthChart"></canvas>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>📝 Nhập Nhanh Chỉ Số Mới</h3>
+        <form id="growthForm" onsubmit="handleGrowthSubmit(event)" class="form-grid">
+          <div class="input-group">
+            <label>Ngày đo:</label>
+            <input type="date" id="growthDate" required />
+          </div>
+          <div class="input-group">
+            <label>Cân nặng (kg):</label>
+            <input type="number" step="0.1" id="growthWeight" placeholder="8.6" required />
+          </div>
+          <div class="input-group">
+            <label>Chiều cao (cm):</label>
+            <input type="number" step="0.5" id="growthHeight" placeholder="70.0" />
+          </div>
+          <div class="input-group full">
+            <label>Ghi chú:</label>
+            <input type="text" id="growthNote" placeholder="Tự đo ở nhà / Khám định kỳ..." />
+          </div>
+          <button type="submit" class="btn-primary full">Lưu Chỉ Số 💾</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Tab 4: Vaccine Schedule -->
+    <section id="tab-vaccine" class="tab-content">
+      <div class="section-card">
+        <h3>💉 Lịch Tiêm Chủng Mở Rộng & Dịch Vụ</h3>
+        <p class="card-desc">Bấm vào mũi tiêm để đánh dấu "Đã tiêm" hoặc "Chưa tiêm".</p>
+        <div id="vaccineList" class="vaccine-grid">
+          <p class="empty-state">Đang tải lịch tiêm chủng...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 5: Zalo Connect & Test -->
+    <section id="tab-zalo" class="tab-content">
+      <div class="section-card">
+        <h3>📱 Kết Nối Zalo Official Account (OA)</h3>
+        <div class="guide-steps">
+          <div class="step-item">
+            <span class="step-num">1</span>
+            <div>
+              <b>Đường dẫn Webhook Zalo của bạn:</b>
+              <code id="webhookUrlDisplay">http://&lt;IP_máy_tính&gt;:8000/api/zalo/webhook</code>
+              <p class="sub-text">Dán URL này vào mục Webhook trên trang Cấu hình Zalo App (developers.zalo.me).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">2</span>
+            <div>
+              <b>Mã xác thực Webhook (Verify Token):</b>
+              <code>dino_ai_secret_token_2026</code>
+            </div>
+          </div>
+          <div class="step-item">
+            <span class="step-num">3</span>
+            <div>
+              <b>Mở trên điện thoại qua Wi-Fi gia đình:</b>
+              <p class="sub-text">Để mở ứng dụng này trên điện thoại của Bố Thắng & Mẹ Chi, chỉ cần mở Safari/Chrome và nhập địa chỉ IP máy tính cổng 8000 (Ví dụ: <code>http://192.168.1.xxx:8000</code>).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h3>🧪 Mô Phỏng Nhắn Tin Từ Zalo (Test Webhook)</h3>
+        <p class="card-desc">Thử nghiệm gửi tin nhắn như thể đang gửi trực tiếp từ ứng dụng Zalo trên điện thoại.</p>
+        <div class="sim-box">
+          <div class="input-group">
+            <label>Người gửi giả lập:</label>
+            <select id="simSender">
+              <option value="father">Bố Thắng (Lê Quốc Thắng)</option>
+              <option value="mother">Mẹ Chi (Trương Hoàng Linh Chi)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Nội dung tin nhắn Zalo:</label>
+            <input type="text" id="simMessage" placeholder="Dino vừa tập bò được 1 mét rồi bố ơi..." />
+          </div>
+          <button type="button" class="btn-primary" onclick="simulateZaloWebhook()">Mô Phỏng Gửi Qua Zalo 🚀</button>
+          <div id="simResult" class="sim-result hidden"></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

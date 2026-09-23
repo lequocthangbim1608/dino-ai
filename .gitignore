@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+*.pyc
+*.log
+.env
+.DS_Store
+*.db-journal
+LINK_CHO_DIEN_THOAI.txt
