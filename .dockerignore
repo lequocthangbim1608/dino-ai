@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+*.log
+.env
+.git/
+LINK_CHO_DIEN_THOAI.txt
