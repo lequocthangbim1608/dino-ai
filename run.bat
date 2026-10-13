@@ -7,8 +7,8 @@ color 0A
 
 echo ========================================================
 echo       DINO AI - HE THONG TRO LY NUOI DAY CON
-echo       Be: Le Truong Quoc Vu (Dino) - 14/02/2026
-echo       Bo Thang va Me Chi
+echo       Em: Le Truong Quoc Vu (Dino) - 14/02/2026
+echo       Ba Thang va Me Chi
 echo ========================================================
 echo.
 

@@ -1,14 +1,14 @@
-# 🦖 DINO AI - Người Bạn Đồng Hành Cùng Bé Lê Trương Quốc Vũ
+# 🦖 DINO AI - Người Bạn Đồng Hành Cùng Em Lê Trương Quốc Vũ (Dino)
 
-Dự án **DINO AI** là hệ thống trợ lý thông minh được tạo ra nhằm đồng hành cùng **Bố Lê Quốc Thắng** và **Mẹ Trương Hoàng Linh Chi** trong suốt hành trình nuôi dạy và chứng kiến con trai yêu **Lê Trương Quốc Vũ (Dino)** khôn lớn trong kỷ nguyên trí tuệ nhân tạo.
+Dự án **DINO AI** là hệ thống trợ lý thông minh được tạo ra nhằm đồng hành cùng **Ba Lê Quốc Thắng** và **Mẹ Trương Hoàng Linh Chi** trong suốt hành trình nuôi dạy và chứng kiến con trai yêu **Lê Trương Quốc Vũ (em Dino)** khôn lớn trong kỷ nguyên trí tuệ nhân tạo.
 
 ---
 
 ## 👨‍👩‍👦 Thông Tin Gia Đình
 
-- **Bé yêu:** Lê Trương Quốc Vũ (ở nhà gọi là **Dino / Dinosaur**)
+- **Con yêu:** Lê Trương Quốc Vũ (ở nhà gọi là **em Dino / Dinosaur**)
 - **Ngày sinh:** 14/02/2026 (Ngày Lễ Tình Nhân)
-- **Bố:** Lê Quốc Thắng (04/02/2000)
+- **Ba:** Lê Quốc Thắng (04/02/2000)
 - **Mẹ:** Trương Hoàng Linh Chi (13/09/2001)
 
 ---

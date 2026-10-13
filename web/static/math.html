@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>DINO MATH - Hệ Thống Học Toán Đại Số & Hình Học Cho Bé Dino</title>
+  <link rel="stylesheet" href="/static/math.css?v=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- =========================================================================
+       SIDEBAR NAVIGATION (Phong cách BIM AI Progress Deep Plum)
+       ========================================================================= -->
+  <aside class="sidebar">
+    <div class="brand-container">
+      <div class="brand-logo">DM</div>
+      <div class="brand-info">
+        <h1>DINO MATH AI</h1>
+        <span>Algebra & Geometry Lab</span>
+      </div>
+    </div>
+
+    <nav class="nav-menu">
+      <div class="nav-section-title">Chủ Đề Toán Học</div>
+      <div class="nav-item active" id="navLinear" data-view="linear-function">
+        <span class="nav-icon">📈</span>
+        <span>Hệ Trục Oxy & Hàm Số</span>
+        <span class="nav-badge">Bài 1</span>
+      </div>
+      <div class="nav-item" id="navFourier" data-view="fourier-epicycles">
+        <span class="nav-icon">🌀</span>
+        <span>Chuỗi Fourier & Vẽ Hình</span>
+        <span class="nav-badge" style="background:#38BDF8; color:#0F172A; font-weight:800;">Mới</span>
+      </div>
+      <div class="nav-item" onclick="alert('Tính năng nâng cao: Vẽ tam giác và hình học phẳng đang được chuẩn bị cho Dino!')">
+        <span class="nav-icon">📐</span>
+        <span>Hình Học & Tam Giác</span>
+      </div>
+      <div class="nav-item" onclick="alert('Tính năng nâng cao: Đo khoảng cách và định lý Pythagoras đang được chuẩn bị cho Dino!')">
+        <span class="nav-icon">📏</span>
+        <span>Đo Khoảng Cách & Góc</span>
+      </div>
+      <div class="nav-item" onclick="alert('Tính năng nâng cao: Luyện tập giải toán có AI chấm điểm đang được chuẩn bị cho Dino!')">
+        <span class="nav-icon">🎯</span>
+        <span>Bài Tập Tương Tác</span>
+      </div>
+
+      <div class="nav-section-title">Hệ Thống Gia Đình</div>
+      <a href="/" class="nav-item">
+        <span class="nav-icon">🦖</span>
+        <span>Dino AI Tracker</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-badge">
+        <div class="user-avatar" id="currentUserAvatar">TL</div>
+        <div class="user-meta">
+          <div class="user-name" id="currentUserName">Ba Thắng & Em Dino</div>
+          <div class="user-role">Gia Sư & Học Trò</div>
+        </div>
+      </div>
+      <button class="btn-icon" id="themeToggleBtn" title="Chuyển chế độ Sáng / Tối">🌓</button>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MAIN WRAPPER
+       ========================================================================= -->
+  <div class="main-wrapper">
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="header-left">
+        <div class="topic-select-wrapper">
+          <span class="topic-label">Bài học:</span>
+          <select id="topicSelect" class="topic-select">
+            <option value="1">Bài 1: Hệ trục Oxy & Đồ thị hàm số y = ax (Ảnh SGK)</option>
+            <option value="2">Bài 2: Đường phân giác góc phần tư (y = x, y = -x)</option>
+            <option value="3">Bài 3: Nhận biết tính đồng biến / nghịch biến</option>
+            <option value="4">Bài 4: Chuỗi Fourier 2D - Vẽ hình bằng x(t) & y(t) (Mới)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-primary" id="btnExportPNG" title="Lưu ảnh bài học">
+          <span>📷</span>
+          <span>Xuất Ảnh Đồ Thị</span>
+        </button>
+        <a href="/" class="btn btn-secondary">
+          <span>🦖</span>
+          <span>Dino Nhật Ký</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Content Viewport -->
+    <main class="content-viewport">
+
+      <!-- =========================================================================
+           VIEW 1: HỆ TRỤC OXY & HÀM SỐ (LINEAR FUNCTION)
+           ========================================================================= -->
+      <div id="view-linear" class="math-subview">
+
+        <!-- KPI Summary Cards Grid -->
+        <div class="kpi-grid">
+        <div class="kpi-card point-card">
+          <span class="kpi-title">Điểm Khảo Sát</span>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiPointA">A(2, 1)</span>
+            <span class="kpi-sub">Tọa độ Oxy</span>
+          </div>
+        </div>
+        <div class="kpi-card eq-card">
+          <span class="kpi-title">Phương Trình Đồ Thị</span>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiEquation">y = 1/2 x</span>
+            <span class="kpi-sub">Hàm số qua gốc O</span>
+          </div>
+        </div>
+        <div class="kpi-card slope-card" id="cardSlope">
+          <span class="kpi-title">Hệ Số Góc (Slope)</span>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiSlope">1/2 (0.5)</span>
+            <span class="kpi-sub" id="kpiSlopeSub">Đồng biến (dốc lên)</span>
+          </div>
+        </div>
+        <div class="kpi-card quad-card" id="cardQuadrant">
+          <span class="kpi-title">Góc Phần Tư</span>
+          <div class="kpi-value-row">
+            <span class="kpi-value" id="kpiQuadrant">Phần tư I (+, +)</span>
+            <span class="kpi-sub" id="kpiQuadrantSub">x > 0, y > 0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Workspace (Grid 2 Cột) -->
+      <div class="workspace-grid">
+
+        <!-- CỘT TRÁI: BẢNG ĐIỀU KHIỂN & BÀI GIẢNG SƯ PHẠM -->
+        <div class="left-panel">
+
+          <!-- Card 1: Nhập Tọa Độ Điểm A -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span>🎯</span>
+                <span>Nhập Số Tọa Độ Cho Điểm A</span>
+              </div>
+              <span class="card-badge">Tương Tác Trực Tiếp</span>
+            </div>
+
+            <!-- Inputs X và Y -->
+            <div class="coord-control-group">
+              <!-- Trục Hoành X -->
+              <div class="input-box">
+                <div class="input-label-row">
+                  <span class="input-label">Hoành độ (Trục X):</span>
+                  <span class="input-badge" id="valBadgeX">-7</span>
+                </div>
+                <input type="number" id="coordX" class="number-input" value="-7" step="0.5" />
+                <input type="range" id="sliderX" class="slider-range" min="-12" max="12" step="0.5" value="-7" />
+                <div class="stepper-row" style="margin-top: 6px;">
+                  <button class="step-btn" onclick="document.getElementById('coordX').value = parseFloat(document.getElementById('coordX').value) - 1; document.getElementById('coordX').dispatchEvent(new Event('input'));">-1</button>
+                  <button class="step-btn" onclick="document.getElementById('coordX').value = 0; document.getElementById('coordX').dispatchEvent(new Event('input'));">0</button>
+                  <button class="step-btn" onclick="document.getElementById('coordX').value = parseFloat(document.getElementById('coordX').value) + 1; document.getElementById('coordX').dispatchEvent(new Event('input'));">+1</button>
+                </div>
+              </div>
+
+              <!-- Trục Tung Y -->
+              <div class="input-box">
+                <div class="input-label-row">
+                  <span class="input-label">Tung độ (Trục Y):</span>
+                  <span class="input-badge" id="valBadgeY">3</span>
+                </div>
+                <input type="number" id="coordY" class="number-input" value="3" step="0.5" />
+                <input type="range" id="sliderY" class="slider-range" min="-12" max="12" step="0.5" value="3" />
+                <div class="stepper-row" style="margin-top: 6px;">
+                  <button class="step-btn" onclick="document.getElementById('coordY').value = parseFloat(document.getElementById('coordY').value) - 1; document.getElementById('coordY').dispatchEvent(new Event('input'));">-1</button>
+                  <button class="step-btn" onclick="document.getElementById('coordY').value = 0; document.getElementById('coordY').dispatchEvent(new Event('input'));">0</button>
+                  <button class="step-btn" onclick="document.getElementById('coordY').value = parseFloat(document.getElementById('coordY').value) + 1; document.getElementById('coordY').dispatchEvent(new Event('input'));">+1</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chế độ hiển thị đường vẽ (Segmented Mode Pill) -->
+            <div class="line-mode-selector">
+              <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; display: flex; justify-content: space-between;">
+                <span>Kiểu đường vẽ đồ thị:</span>
+                <span id="lineModeStatusBadge" style="color: #38BDF8;">Toàn màn hình</span>
+              </div>
+              <div class="mode-pill-group">
+                <button type="button" class="mode-pill active" id="btnModeFull">
+                  <span>🌐</span>
+                  <span>Đường thẳng 2 phía (y = ax)</span>
+                </button>
+                <button type="button" class="mode-pill" id="btnModeSegment">
+                  <span>📏</span>
+                  <span>Chỉ nối từ (0,0) đến A (Đoạn OA)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tùy Chọn Hiển Thị -->
+            <div class="toggle-options-grid">
+              <label class="toggle-label">
+                <input type="checkbox" id="toggleProjections" checked />
+                <span>Đoạn nét đứt gióng trục</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="toggleLine" checked />
+                <span>Bật/tắt đường nối</span>
+              </label>
+              <label class="toggle-label highlight-toggle" style="grid-column: span 2;">
+                <input type="checkbox" id="toggleSegmentOnly" />
+                <span>✨ Chỉ hiện đường thẳng nối từ (0,0) đến điểm A (Đoạn OA)</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="toggleGrid" checked />
+                <span>Hiển thị lưới toạ độ</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="toggleAngle" />
+                <span>Hiển thị góc dốc α</span>
+              </label>
+              <label class="toggle-label" style="grid-column: span 2;">
+                <input type="checkbox" id="toggleSnap" checked />
+                <span>Hít vào lưới toạ độ (Snap to 0.5 step khi kéo chuột)</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CỘT PHẢI: MẶT PHẲNG TỌA ĐỘ TRỰC QUAN (CANVAS) -->
+        <div class="card graph-card">
+          <div class="card-header" style="margin-bottom: 8px;">
+            <div class="card-title">
+              <span>📊</span>
+              <span>Mặt Phẳng Tọa Độ Oxy Tương Tác Trực Quan</span>
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-muted);">
+              Chuẩn đồ thị sách giáo khoa Toán học
+            </div>
+          </div>
+
+          <!-- Canvas Container -->
+          <div class="graph-canvas-container" id="canvasContainer">
+            <!-- Floating Hint -->
+            <div class="graph-hint">
+              <span>💡</span>
+              <span>Ba Thắng có thể <b>click hoặc kéo thả</b> trực tiếp điểm A trên mặt phẳng!</span>
+            </div>
+
+            <!-- Floating Toolbar -->
+            <div class="graph-toolbar">
+              <button class="graph-tool-btn" id="btnZoomIn" title="Phóng to">+</button>
+              <button class="graph-tool-btn" id="btnZoomOut" title="Thu nhỏ">−</button>
+              <button class="graph-tool-btn" id="btnResetView" title="Đặt lại góc nhìn">⟲</button>
+            </div>
+
+            <!-- Floating Coordinates -->
+            <div class="coord-overlay">
+              Con trỏ: <span id="mouseCoordOverlay">(x: 0.00, y: 0.00)</span>
+            </div>
+
+            <!-- HTML5 Interactive Canvas -->
+            <canvas id="graphCanvas"></canvas>
+          </div>
+        </div>
+
+      </div>
+      <!-- Hết VIEW 1: view-linear -->
+
+      <!-- =========================================================================
+           VIEW 2: CHUỖI FOURIER THAM SỐ 2D (VẼ HÌNH BẰNG x(t), y(t))
+           ========================================================================= -->
+      <div id="view-fourier" class="math-subview" style="display: none;">
+
+        <!-- Fourier Formula Hero Card (Tái hiện phương trình trong ảnh của Ba Thắng) -->
+        <div class="fourier-hero-card">
+          <div class="fourier-hero-header">
+            <div class="hero-title-group">
+              <span class="hero-badge">Bài 4: Chuỗi Fourier Tham Số 2D (Epicycles Lab)</span>
+              <h2 class="hero-title">Phương Trình Tái Tạo Mọi Hình Vẽ Bằng Sóng Lượng Giác</h2>
+            </div>
+            <div class="hero-subtext">
+              Biểu diễn và vẽ nên bất kỳ đường cong 2D nào bằng tổng các vòng tròn xoay điều hòa theo tham số thời gian \(t \in [0, 2\pi]\)
+            </div>
+          </div>
+
+          <!-- Khối Công Thức Chuẩn (Đúng 100% như ảnh Ba Thắng gửi) -->
+          <div class="fourier-formula-display">
+            <div class="formula-row formula-x">
+              <span class="math-var var-x">x(t)</span>
+              <span class="math-sym">=</span>
+              <div class="math-summation">
+                <span class="sigma-sym">∑</span>
+                <span class="sigma-sub">k</span>
+              </div>
+              <span class="math-expr">
+                ( <span class="coeff coeff-a">a<sub>k</sub></span> cos <span class="term-kt">kt</span> + <span class="coeff coeff-b">b<sub>k</sub></span> sin <span class="term-kt">kt</span> )
+              </span>
+            </div>
+
+            <div class="formula-row formula-y">
+              <span class="math-var var-y">y(t)</span>
+              <span class="math-sym">=</span>
+              <div class="math-summation">
+                <span class="sigma-sym">∑</span>
+                <span class="sigma-sub">k</span>
+              </div>
+              <span class="math-expr">
+                ( <span class="coeff coeff-c">c<sub>k</sub></span> cos <span class="term-kt">kt</span> + <span class="coeff coeff-d">d<sub>k</sub></span> sin <span class="term-kt">kt</span> )
+              </span>
+            </div>
+          </div>
+
+          <!-- Chú Thích Ý Nghĩa Các Đại Lượng -->
+          <div class="fourier-legend-bar">
+            <div class="legend-pill">
+              <span class="dot-indicator" style="background: #38BDF8;"></span>
+              <span><b style="color:#38BDF8;">x(t):</b> Hoành độ (dao động trục ngang)</span>
+            </div>
+            <div class="legend-pill">
+              <span class="dot-indicator" style="background: #F59E0B;"></span>
+              <span><b style="color:#F59E0B;">y(t):</b> Tung độ (dao động trục dọc)</span>
+            </div>
+            <div class="legend-pill">
+              <span class="dot-indicator" style="background: #10B981;"></span>
+              <span><b>k:</b> Tần số góc bậc k (vận tốc quay vòng tròn k)</span>
+            </div>
+            <div class="legend-pill">
+              <span class="dot-indicator" style="background: #EC4899;"></span>
+              <span><b>(a<sub>k</sub>, b<sub>k</sub>, c<sub>k</sub>, d<sub>k</sub>):</b> Hệ số biên độ Fourier</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI Grid Cho Fourier -->
+        <div class="kpi-grid">
+          <div class="kpi-card fourier-kpi-shape">
+            <span class="kpi-title">Hình Mẫu Đang Vẽ</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiFourierShape">Khủng Long Dino 🦖</span>
+              <span class="kpi-sub" id="kpiFourierShapeSub">Chuỗi Fourier 2D</span>
+            </div>
+          </div>
+          <div class="kpi-card fourier-kpi-harmonics">
+            <span class="kpi-title">Số Bậc Hài Hòa (N)</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiFourierN">25</span>
+              <span class="kpi-sub">Số vòng tròn epicycles</span>
+            </div>
+          </div>
+          <div class="kpi-card fourier-kpi-time">
+            <span class="kpi-title">Góc Quay Tham Số t</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiFourierT">0.00 rad</span>
+              <span class="kpi-sub" id="kpiFourierProgress">0% chu kỳ 2π</span>
+            </div>
+          </div>
+          <div class="kpi-card fourier-kpi-status">
+            <span class="kpi-title">Trạng Thái Mô Phỏng</span>
+            <div class="kpi-value-row">
+              <span class="kpi-value" id="kpiFourierStatus" style="color: #10B981;">Đang vẽ...</span>
+              <span class="kpi-sub">Động cơ 60 FPS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Fourier Workspace Grid (2 Cột) -->
+        <div class="workspace-grid">
+
+          <!-- CỘT TRÁI: ĐIỀU KHIỂN & BẢNG HỆ SỐ -->
+          <div class="left-panel">
+
+            <!-- Card: Chọn Hình Mẫu -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span>🎨</span>
+                  <span>Chọn Hình Mẫu Khám Phá</span>
+                </div>
+                <span class="card-badge">Thư Viện Toán Học</span>
+              </div>
+
+              <div class="preset-fourier-group">
+                <button type="button" class="fourier-chip active" data-shape="dino">
+                  <span>🦖</span>
+                  <span>Khủng Long Dino</span>
+                </button>
+                <button type="button" class="fourier-chip" data-shape="heart">
+                  <span>❤️</span>
+                  <span>Trái Tim Yêu Thương</span>
+                </button>
+                <button type="button" class="fourier-chip" data-shape="star">
+                  <span>⭐</span>
+                  <span>Ngôi Sao 5 Cánh</span>
+                </button>
+                <button type="button" class="fourier-chip" data-shape="butterfly">
+                  <span>🦋</span>
+                  <span>Cánh Bướm Kỳ Diệu</span>
+                </button>
+                <button type="button" class="fourier-chip" data-shape="infinity">
+                  <span>♾️</span>
+                  <span>Đường Vô Cực</span>
+                </button>
+                <button type="button" class="fourier-chip highlight-chip" data-shape="draw">
+                  <span>✏️</span>
+                  <span>Tự Vẽ Tay Tự Do</span>
+                </button>
+              </div>
+
+              <div id="drawGuideBox" class="draw-guide-alert" style="display: none;">
+                <span>👉</span>
+                <span><b>Cách tự vẽ:</b> Dùng chuột hoặc ngón tay vẽ một nét khép kín trực tiếp lên bảng vẽ bên phải. Thuật toán DFT sẽ tự động tính toán các hệ số \(a_k, b_k, c_k, d_k\) và tái hiện nét vẽ bằng các vòng tròn xoay!</span>
+              </div>
+            </div>
+
+            <!-- Card: Thanh Trượt & Tham Số -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span>⚙️</span>
+                  <span>Điều Khiển Tham Số Fourier</span>
+                </div>
+                <span class="card-badge">Tương Tác Trực Tiếp</span>
+              </div>
+
+              <div class="coord-control-group">
+                <!-- Số lượng vòng tròn N -->
+                <div class="input-box">
+                  <div class="input-label-row">
+                    <span class="input-label">Số bậc hài hòa N (Số vòng xoay):</span>
+                    <span class="input-badge" id="valBadgeN">25</span>
+                  </div>
+                  <input type="range" id="sliderFourierN" class="slider-range" min="1" max="60" step="1" value="25" />
+                  <div class="stepper-row" style="margin-top: 6px;">
+                    <button class="step-btn" id="btnNMinus5">-5</button>
+                    <button class="step-btn" id="btnN1">N=1 (Elip)</button>
+                    <button class="step-btn" id="btnN10">N=10</button>
+                    <button class="step-btn" id="btnNMax">N=50 (Sắc nét)</button>
+                    <button class="step-btn" id="btnNPlus5">+5</button>
+                  </div>
+                  <div style="font-size: 11px; color: var(--text-muted); margin-top: 5px;">
+                    * N càng lớn thì đường cong Fourier x(t), y(t) càng bám sát chi tiết hình ảnh!
+                  </div>
+                </div>
+
+                <!-- Tốc độ quay tham số t -->
+                <div class="input-box">
+                  <div class="input-label-row">
+                    <span class="input-label">Tốc độ quay tham số t:</span>
+                    <span class="input-badge" id="valBadgeSpeed">1.0x</span>
+                  </div>
+                  <input type="range" id="sliderFourierSpeed" class="slider-range" min="0.2" max="3.0" step="0.2" value="1.0" />
+                </div>
+              </div>
+
+              <!-- Nút Play / Pause / Reset -->
+              <div class="fourier-action-row" style="display: flex; gap: 8px; margin-top: 10px;">
+                <button type="button" class="btn btn-primary" id="btnFourierPlayPause" style="flex: 1;">
+                  <span id="fourierPlayIcon">⏸</span>
+                  <span id="fourierPlayText">Tạm Dừng</span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="btnFourierReset" title="Vẽ lại từ đầu">
+                  <span>⟲</span>
+                  <span>Vẽ Lại</span>
+                </button>
+                <button type="button" class="btn btn-secondary" id="btnFourierClear" title="Xóa nét vẽ tay" style="display:none;">
+                  <span>🧹</span>
+                  <span>Xóa Vẽ</span>
+                </button>
+              </div>
+
+              <!-- Tùy Chọn Hiển Thị -->
+              <div class="toggle-options-grid" style="margin-top: 14px;">
+                <label class="toggle-label">
+                  <input type="checkbox" id="toggleEpicycles" checked />
+                  <span>Hiện các vòng tròn xoay (Circles)</span>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="toggleArms" checked />
+                  <span>Hiện kim cánh tay vector</span>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="toggleTrace" checked />
+                  <span>Hiện vệt vẽ quỹ đạo (Trail)</span>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="toggleFourierAxes" checked />
+                  <span>Hiện trục toạ độ Oxy</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Card: Bảng Các Hệ Số (a_k, b_k, c_k, d_k) -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span>🔢</span>
+                  <span>Bảng Trị Số Các Hệ Số Fourier (k = 1, 2, 3...)</span>
+                </div>
+                <span class="card-badge">Dữ Liệu Thật</span>
+              </div>
+              <div class="fourier-table-wrapper">
+                <table class="fourier-table">
+                  <thead>
+                    <tr>
+                      <th>Bậc k</th>
+                      <th style="color:#38BDF8;">a<sub>k</sub></th>
+                      <th style="color:#38BDF8;">b<sub>k</sub></th>
+                      <th style="color:#F59E0B;">c<sub>k</sub></th>
+                      <th style="color:#F59E0B;">d<sub>k</sub></th>
+                      <th>Bán Kính R<sub>k</sub></th>
+                    </tr>
+                  </thead>
+                  <tbody id="fourierCoeffsTableBody">
+                    <tr><td colspan="6" style="text-align:center;">Đang tính toán hệ số...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Card: Bài Giảng Sư Phạm Dành Cho Bé Dino -->
+            <div class="card" style="border-left: 3px solid #38BDF8;">
+              <div class="card-header">
+                <div class="card-title">
+                  <span>💡</span>
+                  <span>Ba Thắng Dạy Bé Dino Về Chuỗi Fourier</span>
+                </div>
+              </div>
+              <div class="pedagogy-body" style="font-size: 13px; line-height: 1.6; color: var(--text-body);">
+                <p>🦖 <b>Bí mật kỳ diệu của Toán học:</b> Mọi hình vẽ trên thế giới đều có thể phân tích thành tổng các vòng tròn xoay đều!</p>
+                <ul style="margin: 8px 0 8px 18px; padding: 0;">
+                  <li><b>cos(kt) và sin(kt):</b> Là những nhịp sóng dao động tuần hoàn điều hòa.</li>
+                  <li><b>Hệ số \(a_k, b_k\):</b> Tạo nên dao động qua lại theo phương ngang (trục x).</li>
+                  <li><b>Hệ số \(c_k, d_k\):</b> Tạo nên dao động lên xuống theo phương dọc (trục y).</li>
+                  <li><b>Bậc k = 1:</b> Vẽ ra hình bầu dục (elip) cơ bản của chú khủng long Dino.</li>
+                  <li><b>Bậc k tăng dần:</b> Tinh chỉnh thêm móng vuốt, đuôi dài, mắt và răng nanh sắc sảo!</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- CỘT PHẢI: CANVAS ĐỒ HỌA CHUỖI FOURIER -->
+          <div class="card graph-card">
+            <div class="card-header" style="margin-bottom: 8px;">
+              <div class="card-title">
+                <span>🌀</span>
+                <span id="canvasTitleText">Mặt Phẳng Vẽ Chuỗi Fourier Epicycles Trực Quan</span>
+              </div>
+              <div style="font-size: 11.5px; color: var(--text-muted);" id="canvasModeSub">
+                Động cơ vật lý lượng giác 60 FPS
+              </div>
+            </div>
+
+            <div class="graph-canvas-container" id="fourierCanvasContainer">
+              <!-- Floating Hint -->
+              <div class="graph-hint" id="fourierCanvasHint">
+                <span>✨</span>
+                <span id="fourierHintText">Mỗi vòng tròn xoay nối tiếp nhau đưa đầu bút vẽ nên hình chú khủng long Dino!</span>
+              </div>
+
+              <!-- Floating Toolbar -->
+              <div class="graph-toolbar">
+                <button class="graph-tool-btn" id="btnFourierZoomIn" title="Phóng to">+</button>
+                <button class="graph-tool-btn" id="btnFourierZoomOut" title="Thu nhỏ">−</button>
+                <button class="graph-tool-btn" id="btnFourierResetView" title="Đặt lại góc nhìn">⟲</button>
+              </div>
+
+              <!-- Floating Coordinates & Formula Value -->
+              <div class="coord-overlay">
+                Đầu bút vẽ: <span id="fourierPointOverlay">(x: 0.00, y: 0.00)</span>
+              </div>
+
+              <!-- Canvas Element -->
+              <canvas id="fourierCanvas"></canvas>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- Hết VIEW 2: view-fourier -->
+  </div>
+
+  <script src="/static/math.js?v=1.0"></script>
+  <script src="/static/fourier.js?v=1.0"></script>
+</body>
+</html>

@@ -18,23 +18,23 @@ def identify_parent(sender_id: str, message_text: str = ""):
     mother_id = PARENTS_INFO["mother"]["zalo_id"]
 
     if sender_id and sender_id == father_id:
-        return PARENTS_INFO["father"]["name"], "Bố"
+        return PARENTS_INFO["father"]["name"], "Ba"
     if sender_id and sender_id == mother_id:
         return PARENTS_INFO["mother"]["name"], "Mẹ"
 
     # Nhận diện theo từ khóa trong câu nếu chưa cấu hình ID cố định
     text_lower = message_text.lower()
     if any(k in text_lower for k in ["bố thắng", "ba thắng", "bố đây", "ba đây", "anh thắng"]):
-        return PARENTS_INFO["father"]["name"], "Bố"
+        return PARENTS_INFO["father"]["name"], "Ba"
     if any(k in text_lower for k in ["mẹ chi", "mẹ đây", "linh chi", "em chi"]):
         return PARENTS_INFO["mother"]["name"], "Mẹ"
 
-    # Mặc định là Bố hoặc Mẹ chung cho gia đình
-    return "Bố/Mẹ", "Phụ huynh"
+    # Mặc định là Ba hoặc Mẹ chung cho gia đình
+    return "Ba/Mẹ", "Phụ huynh"
 
 async def send_zalo_message(user_id: str, text: str):
     """
-    Gửi tin nhắn phản hồi tới Zalo của Bố Thắng hoặc Mẹ Chi qua Zalo OpenAPI.
+    Gửi tin nhắn phản hồi tới Zalo của Ba Thắng hoặc Mẹ Chi qua Zalo OpenAPI.
     """
     if not ZALO_ACCESS_TOKEN:
         print("[Zalo Service] Chưa có ZALO_ACCESS_TOKEN. Không thể gửi tin nhắn qua Zalo OpenAPI.")

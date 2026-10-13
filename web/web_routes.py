@@ -22,7 +22,7 @@ router = APIRouter()
 
 class ChatRequest(BaseModel):
     message: str
-    author_role: str = "Bố" # "Bố" hoặc "Mẹ"
+    author_role: str = "Ba" # "Ba" hoặc "Mẹ"
     author_name: Optional[str] = None
 
 class GrowthRequest(BaseModel):
@@ -62,7 +62,7 @@ async def chat_interaction(req: ChatRequest):
     if not req.message.strip():
         raise HTTPException(status_code=400, detail="Tin nhắn không được để trống")
         
-    author_name = req.author_name or (PARENTS_INFO["father"]["name"] if req.author_role == "Bố" else PARENTS_INFO["mother"]["name"])
+    author_name = req.author_name or (PARENTS_INFO["father"]["name"] if req.author_role in ["Ba", "Bố"] else PARENTS_INFO["mother"]["name"])
     
     # Process message
     ai_res = await process_parent_message(req.message, req.author_role, author_name)

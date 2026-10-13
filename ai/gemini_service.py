@@ -12,7 +12,7 @@ def fallback_smart_parser(message: str, author_role: str):
     """
     msg_lower = message.lower()
     age_info = calculate_dino_age()
-    role_str = "Bố Thắng" if "bố" in author_role.lower() or "thắng" in author_role.lower() else "Mẹ Chi"
+    role_str = "Ba Thắng" if any(k in author_role.lower() for k in ["ba", "bố", "thắng"]) else "Mẹ Chi"
 
     # Kiểm tra chỉ số sức khỏe (Cân nặng, chiều cao, nhiệt độ)
     weight_match = re.search(r"(\d+(\.\d+)?)\s*(kg|kí|cân)", msg_lower)
@@ -23,19 +23,19 @@ def fallback_smart_parser(message: str, author_role: str):
         weight = float(weight_match.group(1)) if weight_match else None
         height = float(height_match.group(1)) if height_match else None
         
-        reply_lines = [f"Chào {role_str}! Dino AI đã ghi nhận chỉ số sức khỏe của bé Dino ({age_info['age_str']})."]
+        reply_lines = [f"Chào {role_str}! Dino AI đã ghi nhận chỉ số sức khỏe của em Dino ({age_info['age_str']})."]
         if weight:
             # Chuẩn WHO bé trai 7-8 tháng: 6.9 - 10.7kg, trung bình ~8.6kg
-            reply_lines.append(f"• Cân nặng: {weight} kg. So với chuẩn WHO bé trai giai đoạn này (~8.3 - 8.6 kg), trộm vía chỉ số của Dino rất tốt và khỏe mạnh!")
+            reply_lines.append(f"• Cân nặng: {weight} kg. So với chuẩn WHO bé trai giai đoạn này (~8.3 - 8.6 kg), trộm vía chỉ số của em Dino rất tốt và khỏe mạnh!")
         if height:
             # Chuẩn WHO bé trai 7-8 tháng: 66 - 75cm, trung bình ~70.6cm
-            reply_lines.append(f"• Chiều cao: {height} cm. Bé đang phát triển chiều dài cơ thể rất đạt chuẩn.")
+            reply_lines.append(f"• Chiều cao: {height} cm. Em đang phát triển chiều dài cơ thể rất đạt chuẩn.")
         if temp_match:
             temp = float(temp_match.group(1))
             if temp >= 38.5:
-                reply_lines.append(f"⚠️ Chú ý: Nhiệt độ {temp}°C là sốt cao đối với bé {age_info['months']} tháng. {role_str} hãy lau mát nách/bẹn bằng nước ấm, cho bé bú nhiều cữ nhỏ và tham vấn bác sĩ chuyên khoa nhi nếu sốt kéo dài nhé!")
+                reply_lines.append(f"⚠️ Chú ý: Nhiệt độ {temp}°C là sốt cao đối với em {age_info['months']} tháng. {role_str} hãy lau mát nách/bẹn bằng nước ấm, cho em bú nhiều cữ nhỏ và tham vấn bác sĩ chuyên khoa nhi nếu sốt kéo dài nhé!")
             elif temp >= 37.5:
-                reply_lines.append(f"• Thân nhiệt {temp}°C hơi ấm nhẹ (có thể do mọc răng hoặc vừa tiêm phòng). {role_str} cho bé mặc đồ thoáng mát và theo dõi thêm nhé.")
+                reply_lines.append(f"• Thân nhiệt {temp}°C hơi ấm nhẹ (có thể do mọc răng hoặc vừa tiêm phòng). {role_str} cho em mặc đồ thoáng mát và theo dõi thêm nhé.")
 
         return {
             "category": "HEALTH",
@@ -54,9 +54,9 @@ def fallback_smart_parser(message: str, author_role: str):
             "category": "MEAL",
             "summary": "Bữa ăn dặm / cữ sữa của Dino",
             "extracted_data": {"food_text": message},
-            "reply": f"Dạ {role_str}! Dino AI đã lưu lại nhật ký bữa ăn này của bé Dino rồi ạ. "
-                     f"Ở mốc {age_info['age_str']}, hệ tiêu hóa của Dino đang làm quen tuyệt vời với các món mới. "
-                     f"{role_str} nhớ cho bé uống vài ngụm nước ấm sau bữa ăn và duy trì lượng sữa chính 600-800ml/ngày để đảm bảo năng lượng nhé!"
+            "reply": f"Dạ {role_str}! Dino AI đã lưu lại nhật ký bữa ăn này của em Dino rồi ạ. "
+                     f"Ở mốc {age_info['age_str']}, hệ tiêu hóa của em Dino đang làm quen tuyệt vời với các món mới. "
+                     f"{role_str} nhớ cho em uống vài ngụm nước ấm sau bữa ăn và duy trì lượng sữa chính 600-800ml/ngày để đảm bảo năng lượng nhé!"
         }
 
     # Kiểm tra giấc ngủ
@@ -65,9 +65,9 @@ def fallback_smart_parser(message: str, author_role: str):
             "category": "SLEEP",
             "summary": "Giấc ngủ / nếp sinh hoạt Easy",
             "extracted_data": {"sleep_text": message},
-            "reply": f"Dino AI đã ghi nhận giấc ngủ của bé Dino! Ở tuổi này ({age_info['age_str']}), "
-                     f"bé thường duy trì 2-3 giấc nap ban ngày với thời gian thức (wake window) khoảng 2.5 - 3 tiếng trước mỗi cữ ngủ. "
-                     f"Chúc bé Dino ngủ thật ngon và sâu giấc!"
+            "reply": f"Dino AI đã ghi nhận giấc ngủ của em Dino! Ở tuổi này ({age_info['age_str']}), "
+                     f"em thường duy trì 2-3 giấc nap ban ngày với thời gian thức (wake window) khoảng 2.5 - 3 tiếng trước mỗi cữ ngủ. "
+                     f"Chúc em Dino ngủ thật ngon và sâu giấc!"
         }
 
     # Kiểm tra cột mốc phát triển
@@ -76,9 +76,9 @@ def fallback_smart_parser(message: str, author_role: str):
             "category": "MILESTONE",
             "summary": "Cột mốc phát triển mới của Dino",
             "extracted_data": {"milestone_title": message[:50]},
-            "reply": f"🎉 Hoan hô bé Dino! Chúc mừng {role_str} và gia đình! "
-                     f"Mốc phát triển '{message}' là một bước tiến vượt bậc của Dino ở giai đoạn {age_info['age_str']}. "
-                     f"Bố mẹ nhớ khích lệ con và chú ý an toàn xung quanh khu vực bé vận động nhé!"
+            "reply": f"🎉 Hoan hô em Dino! Chúc mừng {role_str} và gia đình! "
+                     f"Mốc phát triển '{message}' là một bước tiến vượt bậc của em Dino ở giai đoạn {age_info['age_str']}. "
+                     f"Ba mẹ nhớ khích lệ con và chú ý an toàn xung quanh khu vực em vận động nhé!"
         }
 
     # Trường hợp hỏi đáp chung hoặc ghi chép khác
@@ -86,13 +86,13 @@ def fallback_smart_parser(message: str, author_role: str):
         "category": "NOTE",
         "summary": "Ghi chép kỷ niệm gia đình",
         "extracted_data": {"content": message},
-        "reply": f"Dạ chào {role_str}! Dino AI đã lắng nghe và lưu lại ghi chép này vào sổ tay trưởng thành của Dino ({age_info['age_str']}). "
+        "reply": f"Dạ chào {role_str}! Dino AI đã lắng nghe và lưu lại ghi chép này vào sổ tay trưởng thành của em Dino ({age_info['age_str']}). "
                  f"{role_str} cần em hỗ trợ giải đáp hay gợi ý điều gì về thực đơn ăn dặm, lịch tiêm phòng hay trò chơi phát triển cho con không ạ?"
     }
 
 async def process_parent_message(message: str, author_role: str, author_name: str) -> dict:
     """
-    Xử lý tin nhắn từ Bố Thắng hoặc Mẹ Chi qua Gemini API (hoặc fallback thông minh)
+    Xử lý tin nhắn từ Ba Thắng hoặc Mẹ Chi qua Gemini API (hoặc fallback thông minh)
     Đồng thời tự động lưu vào các bảng tăng trưởng/cột mốc nếu có số liệu.
     """
     age_info = calculate_dino_age()

@@ -1,4 +1,14 @@
 import sys
+import os
+from pathlib import Path
+
+# Đảm bảo đường dẫn nạp module luôn chính xác
+BASE_DIR = Path(__file__).resolve().parent
+site_packages = BASE_DIR / "venv" / "Lib" / "site-packages"
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
+if site_packages.exists() and str(site_packages) not in sys.path:
+    sys.path.insert(0, str(site_packages))
 
 if sys.platform == "win32":
     try:
@@ -54,6 +64,14 @@ async def root():
     if index_file.exists():
         return FileResponse(index_file)
     return {"message": "DINO AI Server is Running. Static files not yet generated."}
+
+@app.get("/math")
+async def math_view():
+    math_file = static_dir / "math.html"
+    if math_file.exists():
+        return FileResponse(math_file)
+    return {"message": "Dino Math module page not found."}
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host=HOST, port=PORT, reload=True)

@@ -35,7 +35,7 @@ PARENTS_INFO = {
     "father": {
         "name": "Lê Quốc Thắng",
         "dob": "2000-02-04",
-        "role": "Bố",
+        "role": "Ba",
         "zalo_id": os.getenv("ZALO_FATHER_ID", "")
     },
     "mother": {

@@ -34,8 +34,8 @@
       <div class="role-selector">
         <span class="role-label">Tài khoản:</span>
         <div class="role-pills">
-          <button class="role-btn active" id="roleFatherBtn" onclick="setRole('Bố', 'Lê Quốc Thắng')">
-            👨 Bố Thắng
+          <button class="role-btn active" id="roleFatherBtn" onclick="setRole('Ba', 'Lê Quốc Thắng')">
+            👨 Ba Thắng
           </button>
           <button class="role-btn" id="roleMotherBtn" onclick="setRole('Mẹ', 'Trương Hoàng Linh Chi')">
             👩 Mẹ Chi
@@ -66,15 +66,21 @@
         <span class="tab-icon">📱</span>
         <span class="tab-text">Kết Nối Zalo</span>
       </button>
+      <a href="/math" class="tab-btn" style="text-decoration: none; color: inherit; background: linear-gradient(135deg, rgba(78, 20, 32, 0.1), rgba(142, 43, 62, 0.15)); border: 1px solid rgba(142, 43, 62, 0.35); border-radius: 8px;">
+        <span class="tab-icon">📐</span>
+        <span class="tab-text" style="font-weight: 700; color: #8E2B3E;">Học Toán</span>
+      </a>
     </nav>
 
     <!-- Tab 1: AI Chat -->
     <section id="tab-chat" class="tab-content active">
       <div class="chat-quick-actions">
         <div class="quick-scroll">
+          <a href="/math" class="quick-chip" style="text-decoration: none; background: #5C1625; color: #FFF; font-weight: 700;">📐 Dino Math Lab (BIM AI Style)</a>
+          <a href="/math?topic=4" class="quick-chip" style="text-decoration: none; background: linear-gradient(135deg, #0284C7, #0369A1); color: #FFF; font-weight: 700;">🌀 Chuỗi Fourier x(t), y(t)</a>
           <button class="quick-chip" onclick="quickSend('Dino vừa ăn hết 60ml cháo bí đỏ rây và 1 miếng bơ')">🥣 Ăn dặm hôm nay</button>
           <button class="quick-chip" onclick="quickSend('Hôm nay Dino cân được 8.6kg, dài 70cm')">⚖️ Đo cân nặng, chiều cao</button>
-          <button class="quick-chip" onclick="quickSend('Bé vừa ngủ nap sáng 1 tiếng rất ngoan')">💤 Ghi nhận giấc ngủ</button>
+          <button class="quick-chip" onclick="quickSend('Em vừa ngủ nap sáng 1 tiếng rất ngoan')">💤 Ghi nhận giấc ngủ</button>
           <button class="quick-chip" onclick="quickSend('Dino vừa tự vịn tay vào mép giường đứng lên được 20 giây')">🌟 Cột mốc vận động mới</button>
           <button class="quick-chip" onclick="quickSend('Gợi ý trò chơi phát triển thính giác và ngôn ngữ cho bé 7 tháng tuổi')">💡 Gợi ý trò chơi</button>
         </div>
@@ -83,8 +89,8 @@
       <div class="chat-messages" id="chatMessages">
         <div class="msg-box bot">
           <div class="msg-bubble">
-            <p>Chào Bố Thắng và Mẹ Chi! Em là <b>DINO AI</b> 🦖.</p>
-            <p>Bố mẹ có thể nhắn tin nhanh, ghi nhận bữa ăn, giấc ngủ, chỉ số sức khỏe của bé Quốc Vũ hoặc hỏi bất kỳ thắc mắc nào về chăm sóc con nhé!</p>
+            <p>Chào Ba Thắng và Mẹ Chi! Em là <b>DINO AI</b> 🦖.</p>
+            <p>Ba mẹ có thể nhắn tin nhanh, ghi nhận bữa ăn, giấc ngủ, chỉ số sức khỏe của em Dino hoặc hỏi bất kỳ thắc mắc nào về chăm sóc con nhé!</p>
           </div>
         </div>
       </div>

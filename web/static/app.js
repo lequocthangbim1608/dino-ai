@@ -1,4 +1,4 @@
-let currentRole = "Bố";
+let currentRole = "Ba";
 let currentAuthorName = "Lê Quốc Thắng";
 let growthChartInstance = null;
 
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function setRole(role, name) {
   currentRole = role;
   currentAuthorName = name;
-  document.getElementById("roleFatherBtn").classList.toggle("active", role === "Bố");
+  document.getElementById("roleFatherBtn").classList.toggle("active", role === "Ba");
   document.getElementById("roleMotherBtn").classList.toggle("active", role === "Mẹ");
 }
 
@@ -100,7 +100,7 @@ async function handleChatSubmit(e) {
   } catch (err) {
     const loader = document.getElementById(loadingId);
     if (loader) loader.remove();
-    appendBotMessage("Xin lỗi Bố Mẹ, Dino AI gặp chút sự cố kết nối. Vui lòng thử lại nhé!");
+    appendBotMessage("Xin lỗi Ba Mẹ, Dino AI gặp chút sự cố kết nối. Vui lòng thử lại nhé!");
   }
 }
 
@@ -146,7 +146,7 @@ async function loadTimeline() {
     const logs = await res.json();
 
     if (logs.length === 0) {
-      container.innerHTML = "<p class='empty-state'>Chưa có ghi chép nào. Bố mẹ hãy nhắn tin vào phần Trò Chuyện nhé!</p>";
+      container.innerHTML = "<p class='empty-state'>Chưa có ghi chép nào. Ba mẹ hãy nhắn tin vào phần Trò Chuyện nhé!</p>";
       return;
     }
 
@@ -198,7 +198,7 @@ function renderGrowthChart(whoStandards, records) {
       labels: months,
       datasets: [
         {
-          label: "Bé Dino (kg)",
+          label: "Em Dino (kg)",
           data: dinoWeights,
           borderColor: "#2e6f40",
           backgroundColor: "#2e6f40",
