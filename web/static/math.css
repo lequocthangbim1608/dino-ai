@@ -759,7 +759,8 @@ body {
   background: radial-gradient(circle at center, #FFFFFF 0%, #FAF2F4 100%);
 }
 
-#graphCanvas {
+#graphCanvas,
+#fourierCanvas {
   display: block;
   width: 100%;
   height: 100%;

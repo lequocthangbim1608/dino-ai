@@ -950,6 +950,12 @@
       if (topicSelect) topicSelect.value = '4';
       if (window.DinoFourier && window.DinoFourier.resize) {
         window.DinoFourier.resize();
+      } else {
+        setTimeout(() => {
+          if (window.DinoFourier && window.DinoFourier.resize) {
+            window.DinoFourier.resize();
+          }
+        }, 100);
       }
     } else {
       if (viewLinear) viewLinear.style.display = 'flex';
