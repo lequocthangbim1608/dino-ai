@@ -1,6 +1,15 @@
 import asyncio
 import sys
 
+import os
+from pathlib import Path
+
+# Ensure root dir in sys.path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+site_packages = Path(__file__).resolve().parent / "venv" / "Lib" / "site-packages"
+if site_packages.exists() and str(site_packages) not in sys.path:
+    sys.path.insert(0, str(site_packages))
+
 # Ensure UTF-8 output on Windows terminal
 if sys.platform == "win32":
     import io
